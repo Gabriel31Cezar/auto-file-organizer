@@ -1,7 +1,9 @@
 import shutil
 from pathlib import Path
 
-# Dicionário que mapeia as categorias para as respetivas extensões de ficheiro
+# Importamos o leitor de datas que criámos no módulo ao lado
+from app.core.exif_reader import get_photo_date
+
 CATEGORY_MAP = {
     "Imagens": [
         ".jpg",
@@ -31,16 +33,13 @@ CATEGORY_MAP = {
 
 
 def get_unique_path(destination_dir: Path, filename: str) -> Path:
-    """Garante que não sobrescrevemos um ficheiro existente.
-
-    Se 'ficheiro.txt' já existir, gera 'ficheiro_1.txt', 'ficheiro_2.txt', etc.
-    """
+    """Garante que não sobrescrevemos um ficheiro existente."""
     destination = destination_dir / filename
     if not destination.exists():
         return destination
 
-    stem = Path(filename).stem  # Nome do ficheiro sem a extensão
-    suffix = Path(filename).suffix  # Extensão do ficheiro (ex: .pdf)
+    stem = Path(filename).stem
+    suffix = Path(filename).suffix
     counter = 1
 
     while destination.exists():
@@ -52,10 +51,12 @@ def get_unique_path(destination_dir: Path, filename: str) -> Path:
 
 
 def organize_directory(target_path: str) -> dict:
-    """Lê a pasta selecionada e move os ficheiros para as subpastas correspondentes."""
+    """Lê a pasta selecionada e move os ficheiros para as subpastas correspondentes,
+
+    organizando imagens por Ano e Mês.
+    """
     folder = Path(target_path)
 
-    # Dicionário para contar quantos ficheiros foram movidos por categoria
     summary = {category: 0 for category in CATEGORY_MAP.keys()}
     summary["Outros"] = 0
 
@@ -63,7 +64,6 @@ def organize_directory(target_path: str) -> dict:
         raise ValueError("O caminho especificado não é uma pasta válida.")
 
     for item in folder.iterdir():
-        # Ignora se for uma pasta, ficheiro oculto ou temporário
         if (
             item.is_dir()
             or item.name.startswith(".")
@@ -74,19 +74,23 @@ def organize_directory(target_path: str) -> dict:
         file_ext = item.suffix.lower()
         category_found = None
 
-        # Procura a categoria correspondente à extensão
         for category, extensions in CATEGORY_MAP.items():
             if file_ext in extensions:
                 category_found = category
                 break
 
-        # Se não encontrar uma categoria conhecida, envia para 'Outros'
         if not category_found:
             category_found = "Outros"
 
-        # Define e cria a subpasta da categoria
-        category_dir = folder / category_found
-        category_dir.mkdir(exist_ok=True)
+        # Lógica especial para Imagens: organiza por Ano e Mês
+        if category_found == "Imagens":
+            year, month_folder = get_photo_date(item)
+            category_dir = folder / "Imagens" / year / month_folder
+        else:
+            category_dir = folder / category_found
+
+        # Cria a estrutura de pastas necessária
+        category_dir.mkdir(parents=True, exist_ok=True)
 
         # Trata duplicados e move o ficheiro
         destination = get_unique_path(category_dir, item.name)
