@@ -1,23 +1,25 @@
+from pathlib import Path
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from pathlib import Path
 
-# Importamos a função de organização que criámos no core
 from app.core.organizer import organize_directory
 
-# Configuração global de aparência do CustomTkinter
-ctk.set_appearance_mode("System")  # Segue o tema do sistema (Escuro ou Claro)
-ctk.set_default_color_theme("blue")  # Tema de cor dos botões
+ctk.set_appearance_mode("System")
+ctk.set_default_color_theme("blue")
 
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        # Configurações da Janela Principal
         self.title("Auto File Organizer")
-        self.geometry("550 x 350")
+        self.geometry("550x350")
         self.resizable(False, False)
+
+        # Configura o ícone da janela se o ficheiro existir em assets/
+        icon_path = Path("assets/icon.ico")
+        if icon_path.exists():
+            self.iconbitmap(str(icon_path))
 
         # --- TÍTULO DA APLICAÇÃO ---
         self.title_label = ctk.CTkLabel(
@@ -96,17 +98,14 @@ class App(ctk.CTk):
             self.status_label.configure(text="A organizar ficheiros...", text_color="orange")
             self.update_idletasks()
 
-            # Executa a nossa lógica do backend
             summary = organize_directory(target_path)
-
             total_moved = sum(summary.values())
 
             self.status_label.configure(
                 text=f"Concluído! {total_moved} ficheiro(s) organizado(s).",
                 text_color="green"
             )
-            messagebox.showinfo("Sucesso",
-                                f"Organização concluída com sucesso!\nTotal de ficheiros movidos: {total_moved}")
+            messagebox.showinfo("Sucesso", f"Organização concluída com sucesso!\nTotal de ficheiros movidos: {total_moved}")
 
         except Exception as e:
             self.status_label.configure(text="Erro ao organizar.", text_color="red")
