@@ -1,16 +1,23 @@
-# This is a sample Python script.
+from pathlib import Path
+from app.core.organizer import organize_directory
 
-# Press Ctrl+F5 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# 1. Cria uma pasta temporária de teste dentro do projeto
+test_folder = Path("pasta_teste")
+test_folder.mkdir(exist_ok=True)
 
+# 2. Cria alguns ficheiros fictícios de teste
+(test_folder / "documento.pdf").touch()
+(test_folder / "foto.png").touch()
+(test_folder / "musica.mp3").touch()
+(test_folder / "programa.exe").touch()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+print("Ficheiros de teste criados com sucesso na 'pasta_teste'!")
 
+# 3. Executa a nossa lógica de organização
+resultado = organize_directory(str(test_folder))
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# 4. Exibe o resumo do que foi movido
+print("\nResumo da organização:")
+for categoria, quantidade in resultado.items():
+    if quantidade > 0:
+        print(f" - {categoria}: {quantidade} ficheiro(s)")
