@@ -218,3 +218,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Ambiente Virtual
+.venv/
+venv/
+
+# Caches do Python
+__pycache__/
+*.py[cod]
+
+# Executáveis gerados pelo PyInstaller
+build/
+dist/
+*.spec
+
+# Configurações do PyCharm
+.idea/
