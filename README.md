@@ -137,3 +137,7 @@ python build.py
 
 
 Desenvolvido por **Gabriel Cezar**.
+
+# 📁 Auto File Organizer
+
+[📥 **Baixar Executável (.exe) - Versão 1.0.0**](https://github.com/Gabriel31Cezar/auto-file-organizer/releases/latest)
