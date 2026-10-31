@@ -153,3 +153,17 @@ Desenvolvido por **Gabriel Cezar**.
 - **Tratamento de Duplicados & Segurança:** Renomeação automática para evitar sobrescritas, trava antiloop e limpeza automática de pastas vazias remanescentes.
 - **Interface Visual Moderna:** Desenvolvida em CustomTkinter com suporte nativo ao tema escuro do Windows.
 - **Executável Standalone:** Pode ser utilizado como um ficheiro `.exe` sem necessidade de instalar o Python.
+
+---
+
+## 🆕 Novidades do Update 3.0.0 (Custom & Safe Control)
+
+A versão **v3.0.0** traz um salto de performance, flexibilidade e segurança para a organização de arquivos:
+
+- 🔍 **Análise Prévia & Seleção Interativa (Preview):** Escaneamento em segundo plano que lista todos os arquivos encontrados em subpastas em uma janela com *checkboxes*, permitindo selecionar exatamente o que mover ou filtrar por extensão (ex: `.pdf`).
+- 🏷️ **Personalização dos Nomes das Pastas:** Liberdade para renomear os diretórios de destino da 1ª camada (ex: alterar `Documentos` para `01_Documentos_Trabalho`) antes de organizar.
+- 🔄 **Sistema Transacional de Reversão (Undo):** Registro automático em log `.json` de cada movimentação para desfazer e restaurar 100% dos arquivos às suas localizações originais com auto-limpeza de pastas vazias.
+- 🛡️ **Proteção Automática de Pastas de Projetos:** Reconhecimento de marcadores de desenvolvimento (`.git`, `package.json`, `requirements.txt`, etc.) para não desestruturar pastas organizadas manualmente pelo usuário.
+- ⚡ **Alta Performance Multithread:** Escaneamento assíncrono e renderização em lote na interface gráfica, processando diretórios pesados (1.000+ arquivos) sem travar ou congelar a janela do Windows.
+
+---
