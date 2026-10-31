@@ -1,0 +1,72 @@
+{
+    "protect_project_folders": true,
+    "project_markers": [
+        "pom.xml",
+        ".git",
+        ".idea",
+        ".gitignore",
+        "requirements.txt",
+        "Cargo.toml",
+        "docker-compose.yml",
+        "pyproject.toml",
+        ".vscode",
+        "package.json",
+        "build.gradle"
+    ],
+    "category_map": {
+        "Imagens": [
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".gif",
+            ".webp",
+            ".bmp",
+            ".svg",
+            ".psd",
+            ".ai",
+            ".raw"
+        ],
+        "Documentos": [
+            ".pdf",
+            ".docx",
+            ".doc",
+            ".xlsx",
+            ".xls",
+            ".pptx",
+            ".txt",
+            ".csv",
+            ".odt"
+        ],
+        "Videos": [
+            ".mp4",
+            ".mkv",
+            ".avi",
+            ".mov",
+            ".flv",
+            ".wmv",
+            ".webm"
+        ],
+        "Audios": [
+            ".mp3",
+            ".wav",
+            ".flac",
+            ".aac",
+            ".ogg",
+            ".m4a"
+        ],
+        "Compactados": [
+            ".zip",
+            ".rar",
+            ".7z",
+            ".tar",
+            ".gz",
+            ".iso"
+        ],
+        "Instaladores": [
+            ".exe",
+            ".msi",
+            ".bat",
+            ".cmd"
+        ]
+    }
+}
